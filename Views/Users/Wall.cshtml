@@ -1,0 +1,43 @@
+@model theWall.Models.Msg
+
+
+<p>The Wall</p>  Welcome @ViewBag.fname    
+<hr>
+
+<form asp-controller="Users" asp-action="Postmsg" method="post">
+    <p>Post a message</p>
+    <span asp-validation-for="message"></span>
+    <textarea asp-for= "message" rows="3" cols="8" placeholder="Add a Message"></textarea></br>
+    
+    <input type="submit" name="add" value="Post a comment">
+</form>
+
+<body>
+@{
+    foreach(var mesg in ViewBag.messages){
+        <p>@mesg.user.fname  @mesg.created_at</p>
+        <p>@mesg.message</p>
+
+            <form action="Postcom/@mesg.id" method="POST">
+                <p>Post a comment</p>
+                <p><textarea name= "comment" rows="3" cols="8" placeholder="Add a Comment"></textarea></p>   
+                <input type="submit" value="Post a comment">
+            </form>
+            
+            foreach(var comm in ViewBag.comments){
+            if(comm.msgid == mesg.id){
+           
+                <p>@comm.user.fname</p>
+                <p>@comm.comment @comm.created_at</p>
+            }  
+        }
+        
+             
+            <hr>
+    }   
+}
+
+
+    
+
+</body>

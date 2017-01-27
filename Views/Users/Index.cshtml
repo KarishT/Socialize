@@ -1,0 +1,39 @@
+
+@model theWall.Models.User
+ @{
+     Layout = null;
+  }
+<h1>Socialize</h1>
+
+<p>Create a New Account</p>
+<form asp-controller="Users" asp-action="Register" method="post">
+    <span asp-validation-for="fname"></span>
+    
+    <input asp-for="fname" placeholder="First Name"/>
+    <span asp-validation-for="lname"></span>
+    
+    <input asp-for="lname" placeholder="Last Name"/>
+    <span asp-validation-for="email"></span>
+    
+    <input asp-for="email" placeholder="email"/>
+    <span asp-validation-for="pwd"></span>
+    
+    <input asp-for="pwd" placeholder="Password"/>
+    <span asp-validation-for="cpwd"></span>
+    
+    <input asp-for="cpwd" placeholder="Confirm Password"/>
+    <button type="submit">Register</button></br>
+    @ViewBag.error
+</form>
+<hr>
+<p>Login</p>
+<form asp-controller="Users" asp-action="Login" method="post">
+    <span asp-validation-for="Email"></span>
+    <input asp-for="Email" placeholder="Email"/>
+
+    <span asp-validation-for="Pwd"></span>   
+    <input asp-for="Pwd" placeholder="Password"/>
+
+    <button type="submit">Login</button>
+    @ViewBag.temperror
+</form>
