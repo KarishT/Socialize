@@ -49,15 +49,6 @@ namespace theWall.Models
         [DataType(DataType.Date)]
         public DateTime updated_at {get;set;}
 
-        [Required]
-        [RegularExpression(@"^[A-Za-z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")]
-        public string Email { get; set; }
-
-        [DataType(DataType.Password)]
-        [Required]
-        [MinLength(2)]
-        [RegularExpression(@"^[a-zA-Z0-9]+$")]
-        public string Pwd { get; set; }
 
     }
 }

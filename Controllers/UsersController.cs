@@ -36,7 +36,8 @@ namespace theWall.Controllers
         public IActionResult Register(User user)
         {
                 if(userFactory.FindByEmail(user.email)== null){
-                    if(ModelState.IsValid){  
+                    if(ModelState.IsValid)
+                    {  
                         PasswordHasher<User> Hasher = new PasswordHasher<User>();
                         user.pwd = Hasher.HashPassword(user, user.pwd);
                         userFactory.Add(user); 
@@ -45,19 +46,23 @@ namespace theWall.Controllers
                         HttpContext.Session.SetString("fname", user.fname);    
                         return RedirectToAction("Wall");
                     }
+                    return View("Index");
                 }  
+                else{
                 ViewBag.error = "User already exists";
                 return View("Index");
+                }
         }
 
         [HttpPost]
         [Route("/login")]
-        public IActionResult Login(string Email, string Pwd)
+        public IActionResult Login(string EmailTocheck, string PwdTocheck)
         {
-                var Checkuser = userFactory.FindByEmail(Email);
-                if(Checkuser!=null && Pwd !=null){
+                var Checkuser = userFactory.FindByEmail(EmailTocheck);
+                if(Checkuser!=null && PwdTocheck !=null)
+                {
                     var Hasher = new PasswordHasher<User>();
-                    if(0 != Hasher.VerifyHashedPassword(Checkuser, Checkuser.pwd, Pwd))
+                    if(0 != Hasher.VerifyHashedPassword(Checkuser, Checkuser.pwd, PwdTocheck))
                     {                   
                         HttpContext.Session.SetInt32("userId", Checkuser.id);
                         HttpContext.Session.SetString("fname", Checkuser.fname);
@@ -73,7 +78,6 @@ namespace theWall.Controllers
 
         [HttpGet]
         [Route("/wall")]
-
         public IActionResult Wall()
         {        
                 if(!CheckLogin())
@@ -84,8 +88,7 @@ namespace theWall.Controllers
                 ViewBag.messages = new List<Msg>();
                 ViewBag.comments = new List<Com>();
                 ViewBag.fname = HttpContext.Session.GetString("fname");
-                ViewBag.messages = msgFactory.FindAll();
-                      
+                ViewBag.messages = msgFactory.FindAll();              
                 ViewBag.comments = comFactory.FindAll();    
                 return View("Wall");
         }

@@ -27,12 +27,10 @@
 </form>
 <hr>
 <p>Login</p>
-<form asp-controller="Users" asp-action="Login" method="post">
-    <span asp-validation-for="Email"></span>
-    <input asp-for="Email" placeholder="Email"/>
+<form action="Login" method="post">
 
-    <span asp-validation-for="Pwd"></span>   
-    <input asp-for="Pwd" placeholder="Password"/>
+    <input type ="text" name="EmailTocheck" placeholder="Email"/>  
+    <input type="password" name = "PwdTocheck" placeholder="Password"/>
 
     <button type="submit">Login</button>
     @ViewBag.temperror

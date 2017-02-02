@@ -4,20 +4,23 @@ using Dapper;
 using System.Data;
 using MySql.Data.MySqlClient;
 using theWall.Models;
+using Microsoft.Extensions.Options;
 
 namespace theWall.Factory
-{
+{   
+    
     public class UserFactory : IFactory<User>
     {
-        private string connectionString;
-        public UserFactory()
-        {
-            connectionString = "server=localhost;userid=root;password=root;port=8889;database=thewall;SslMode=None";
+        private readonly IOptions<MySqlOptions> mysqlConfig;
+    
+        public UserFactory(IOptions<MySqlOptions> conf) {
+                mysqlConfig = conf;
         }
+    
         internal IDbConnection Connection
         {
             get {
-                return new MySqlConnection(connectionString);
+                return new MySqlConnection(mysqlConfig.Value.ConnectionString);
             }
         }
 
